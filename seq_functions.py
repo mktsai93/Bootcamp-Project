@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 
+# Turn a sequence file into a single string
 def file_to_sequence(filename):
     sequence_file = open(filename, 'r')
     sequence_lines = sequence_file.readlines()
@@ -12,11 +13,13 @@ def file_to_sequence(filename):
     sequence_str = ''.join(map(str, sequence_lines))
     return sequence_str
 
+# Turn a sequence string into a list of 3-letter codons
 def sequence_to_codons(sequence_str):
     codon_list = [ sequence_str[index:index+3] \
         for index in range(0, len(sequence_str), 3) ]
     return codon_list
 
+# Return a string which is the reversed complement of the input string
 def rev_comp_sequence(sequence_str):
     # Dictionary to define complement bases
     complement = {'A': 'T',

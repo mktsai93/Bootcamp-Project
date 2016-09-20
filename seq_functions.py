@@ -36,17 +36,30 @@ def rev_comp_sequence(sequence_str):
     # Return the reverse of that string
     return complement_str[::-1]
 
+class Orf(object):
+    def __init__(self, first_index, last_index, codon_list):
+        self.first_index = first_index
+        self.last_index = last_index
+        self.codon_list = codon_list
+    def indices(self):
+        return (self.first_index, self.last_index)
 
 def find_orfs(codon_list):
     start_codon = re.compile('ATG')
     stop_codons = re.compile('TAA|TAG|TGA')
+    orf_list = []
     started = False
     for index, codon in enumerate(codon_list):
         if not started and start_codon.match(codon):
             started = True
-            print index, codon, 'start'
+            tmp_list = []
+            first_index = index
+            tmp_list.append(codon)
         elif started and not stop_codons.match(codon):
-            print index, codon
+            tmp_list.append(codon)
         elif started and stop_codons.match(codon):
             started = False
-            print index, codon, 'stop'
+            tmp_list.append(codon)
+            last_index = index
+            orf_list.append(Orf(first_index, last_index, tmp_list))
+    return orf_list

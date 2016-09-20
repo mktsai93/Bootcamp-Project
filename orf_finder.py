@@ -5,23 +5,17 @@ import re
 
 script, filename = argv
 
-full_sequence = file_to_sequence(filename)
-reverse_complement = rev_comp_sequence(full_sequence)
+forward_sequence = file_to_sequence(filename)
+reverse_complement = rev_comp_sequence(forward_sequence)
 
-forward_frame1 = sequence_to_codons(full_sequence)
-forward_frame2 = sequence_to_codons(full_sequence[1:])
-forward_frame3 = sequence_to_codons(full_sequence[2:])
+forward_frame1 = sequence_to_codons(forward_sequence)
+forward_frame2 = sequence_to_codons(forward_sequence[1:])
+forward_frame3 = sequence_to_codons(forward_sequence[2:])
 
 reverse_frame1 = sequence_to_codons(reverse_complement)
 reverse_frame2 = sequence_to_codons(reverse_complement[1:])
 reverse_frame2 = sequence_to_codons(reverse_complement[2:])
 
-#print "forward frame 1:"
-#print forward_frame1
-#print "reverse frame 1:"
-#print reverse_frame1
-
-#start_codons = re.compile('ATG')
-#stop_codons = re.compile('TAA'|'TAG'|'TGA')
-
-find_orfs(reverse_frame1)
+rev1_orfs = find_orfs(reverse_frame1)
+for orf in rev1_orfs:
+    print orf.indices()

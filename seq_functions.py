@@ -43,6 +43,12 @@ class Orf(object):
         self.codon_list = codon_list
     def indices(self):
         return (self.first_index, self.last_index)
+    def gc_content(self):
+        pass
+    def translate(self):
+        pass
+    def codon_bias(self):
+        pass
 
 def find_orfs(codon_list):
     start_codon = re.compile('ATG')

@@ -21,10 +21,7 @@ reverse_frame2 = sequence_to_codons(reverse_complement[2:])
 #print "reverse frame 1:"
 #print reverse_frame1
 
-start_codons = re.compile('ATG')
-stop_codons = re.compile('TAA'|'TAG'|'TGA')
+#start_codons = re.compile('ATG')
+#stop_codons = re.compile('TAA'|'TAG'|'TGA')
 
-# Find ORFs using regex
-for codon in forward_frame1:
-    #if start_codons.match(codon):
-    pass
+find_orfs(reverse_frame1)

@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+import re
 
 # Turn a sequence file into a single string
 def file_to_sequence(filename):
@@ -34,3 +35,18 @@ def rev_comp_sequence(sequence_str):
     complement_str = ''.join(bases)
     # Return the reverse of that string
     return complement_str[::-1]
+
+
+def find_orfs(codon_list):
+    start_codon = re.compile('ATG')
+    stop_codons = re.compile('TAA|TAG|TGA')
+    started = False
+    for index, codon in enumerate(codon_list):
+        if not started and start_codon.match(codon):
+            started = True
+            print index, codon, 'start'
+        elif started and not stop_codons.match(codon):
+            print index, codon
+        elif started and stop_codons.match(codon):
+            started = False
+            print index, codon, 'stop'
